@@ -8,8 +8,8 @@ namespace GIAAuditMonitor
 {
     public class UserCredentials
     {
-        public static string USERNAME = "*****";
-        public static string PASSWORD = "*****";
-        public static string TC_API_ENDPOINT = "*****";
+        public static string USERNAME = "asdf";
+        public static string PASSWORD = "asdf";
+        public static string TC_API_ENDPOINT = "asdf";
     }
 }
