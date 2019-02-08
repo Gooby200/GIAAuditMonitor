@@ -10,7 +10,7 @@ namespace GIAAuditMonitor {
             //lets make sure our pathing exists to save information
             FolderHandler.SetupDirectory();
 
-            FolderHandler.GetTodayFiles();
+            FolderHandler.ProcessRelations();
         }
     }
 }
