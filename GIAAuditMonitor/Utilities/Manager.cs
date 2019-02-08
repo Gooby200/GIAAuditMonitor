@@ -15,8 +15,8 @@ namespace GIAAuditMonitor
         public static async Task<string> GetAsyncInfo(string uri)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            string username = "*****";
-            string password = "*****";
+            string username = UserCredentials.USERNAME;
+            string password = UserCredentials.PASSWORD;
             var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password));
             request.Headers.Add("Authorization", "Basic " + encoded);
 

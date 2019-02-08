@@ -50,7 +50,7 @@ namespace GIAAuditMonitor
             //now that we have the files we need to pull info for, lets find their associated github branch info
             foreach (Relation missingRelation in needToAudit)
             {
-                string url = String.Format(@"http://172.16.112.234/app/rest/builds/id:{0}", missingRelation.TeamCityBuild);
+                string url = String.Format(@"{0}id:{1}", UserCredentials.TC_API_ENDPOINT, missingRelation.TeamCityBuild);
                 missingRelation.GitHubBranch = Relation.GetBranchName(Manager.GetAsyncInfo(url).Result);
             }
 

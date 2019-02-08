@@ -10,5 +10,6 @@ namespace GIAAuditMonitor
     {
         public static string USERNAME = "*****";
         public static string PASSWORD = "*****";
+        public static string TC_API_ENDPOINT = "*****";
     }
 }
