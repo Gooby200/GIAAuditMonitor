@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Relation.cs" />
+    <Compile Include="UserCredentials.cs" />
     <Compile Include="Utilities\FolderHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
