@@ -37,6 +37,7 @@ namespace GIAAuditMonitor
                 string contents = File.ReadAllText(file.FullName);
                 if (ContainsRequiredText(contents))
                 {
+                    //this gets octopus build number and teamcity build id
                     relations.Add(Relation.GetInformation(contents));
                 }
             }
@@ -50,18 +51,18 @@ namespace GIAAuditMonitor
             //now that we have the files we need to pull info for, lets find their associated github branch info
             foreach (Relation missingRelation in needToAudit)
             {
-                string url = String.Format(@"{0}id:{1}", UserCredentials.TC_API_ENDPOINT, missingRelation.TeamCityBuild);
-                missingRelation.GitHubBranch = Relation.GetBranchName(Manager.GetAsyncInfo(url).Result);
-            }
+                //use that list of relations and go fetch the github info and jira info
+                missingRelation.GitHubBranch = Relation.GetBranchName(missingRelation);
 
-            foreach (Relation relation in needToAudit)
-            {
-                Console.WriteLine(relation.GitHubBranch);
+                //use JIRA api to pass in github branch and give us the url (or just pass in the github branch name to a jira link and see if it returns
+                //correctly or not)
             }
-            
-            //use that list of relations and go fetch the github info and jira info
 
             //now store that relation info into today's folder with the file name of the octopus build
+            foreach (Relation relation in needToAudit)
+            {
+                Manager.StoreRelationFileServer(relation);
+            }          
         }
 
         private static bool ContainsRequiredText(string contents)

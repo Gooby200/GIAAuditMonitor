@@ -29,5 +29,28 @@ namespace GIAAuditMonitor
                 return await reader.ReadToEndAsync();
             }
         }
+
+        public static bool StoreRelationFileServer(Relation relation) {
+            try {
+                string todayAuditDirectory = Manager.AUDIT_LOG_DIRECTORY + DateTime.Now.ToString("yyyy-MM-dd") + @"\";
+                if (relation.OctopusRelease != null) {
+                    File.AppendAllText(todayAuditDirectory + relation.OctopusRelease.ConvertNullToString() + ".txt", relation.ToString());
+                    return true;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+            return false;
+        }
+    }
+
+    public static class Extensions {
+        public static string ConvertNullToString(this object str) {
+            if (str == null) {
+                return "";
+            } else {
+                return str.ToString();
+            }
+        }
     }
 }

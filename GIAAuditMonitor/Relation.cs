@@ -35,6 +35,20 @@ namespace GIAAuditMonitor
             return relation;
         }
 
+        public static string GetBranchName(Relation relation) {
+            string url = String.Format(@"{0}id:{1}", UserCredentials.TC_API_ENDPOINT, relation.TeamCityBuild);
+            string teamcityResponse = Manager.GetAsyncInfo(url).Result;
+            int checkingLocation = teamcityResponse.IndexOf("branchName=");
+            int endCheckingLocation = teamcityResponse.IndexOf("\"", checkingLocation + "branchName=".Length + 1);
+
+            if (checkingLocation > -1) {
+                string tmp = teamcityResponse.Substring(checkingLocation + "branchName=".Length + 1, endCheckingLocation - checkingLocation - ("branchName=".Length + 1));
+                return tmp;
+            }
+
+            return "";
+        }
+
         public static string GetBranchName(string teamcityResponse)
         {
             int checkingLocation = teamcityResponse.IndexOf("branchName=");
@@ -47,6 +61,10 @@ namespace GIAAuditMonitor
             }
 
             return "";
+        }
+
+        public override string ToString() {
+            return String.Format("{0}|{1}|{2}|{3}", OctopusRelease.ConvertNullToString(), TeamCityBuild.ConvertNullToString(), GitHubBranch.ConvertNullToString(), JIRATicket.ConvertNullToString());
         }
     }
 
